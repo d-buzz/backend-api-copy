@@ -1,0 +1,38 @@
+{
+  "name": "steemconnect-boilerplate",
+  "version": "0.3.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "@hiveio/hive-js": "^0.1.0",
+    "body-parser": "~1.18.2",
+    "compression": "^1.7.4",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "^4.17.1",
+    "express-sanitize-escape": "^1.1.0",
+    "express-session": "^1.15.6",
+    "express-validator": "^6.4.0",
+    "hivesigner": "^3.2.0",
+    "increase-memory-limit": "^1.0.7",
+    "metafetch": "^2.0.0",
+    "metaget": "^1.0.7",
+    "moment": "^2.24.0",
+    "morgan": "^1.9.1",
+    "mysql": "^2.18.1",
+    "node-fetch": "^2.6.0",
+    "pug": "^2.0.4",
+    "redis": "^3.0.2",
+    "serve-favicon": "~2.4.5",
+    "socket.io-client": "^2.3.0",
+    "steem": "^0.7.11",
+    "steemconnect": "^3.0.4",
+    "twitter-lite": "^0.9.4",
+    "utf8": "^3.0.0",
+    "wait.for": "^0.6.6",
+    "window": "^4.2.6"
+  }
+}

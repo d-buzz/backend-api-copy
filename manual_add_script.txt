@@ -1,0 +1,71 @@
+// ADD THIS TO node_modules/hivesigner/lib/index.js // after line 312
+
+// custom methods start
+}, {
+  key: 'subscribe',
+  value: function subscribe(follower, community, cb) {
+    var json = ['subscribe', { community: community }];
+    return this.customJson([], [follower], 'community', (0, _stringify2.default)(json), cb);
+  }
+}, {
+  key: 'unsubscribe',
+  value: function unsubscribe(follower, community, cb) {
+    var json = ['unsubscribe', { community: community }];
+    return this.customJson([], [follower], 'community', (0, _stringify2.default)(json), cb);
+  }
+}, {
+  key: 'flagPost',
+  value: function flagPost(account, author, community, permlink, notes, cb) {
+    var json = ['flagPost', { 
+      community: community,
+      account: author,
+      permlink: permlink,
+      notes: notes
+    }];
+    return this.customJson([], [account], 'community', (0, _stringify2.default)(json), cb);
+  }
+  // after line 278
+}, {
+    key: 'commentOptions',
+    value: function commentOptions(author, permlink, max_accepted_payout, percent_steem_dollars, allow_votes=true, allow_curation_rewards=true,cb) {
+      var params = {
+        author: author,
+        permlink: permlink,
+        max_accepted_payout: max_accepted_payout,
+        percent_steem_dollars: percent_steem_dollars,
+        allow_votes: allow_votes,
+        allow_curation_rewards: allow_curation_rewards,
+        extensions: []
+      };
+      return this.broadcast([['comment_options', params]], cb);
+    }
+
+// custom methods end
+
+// updated comment api 
+
+ }, {
+    key: 'comment',
+    value: function comment(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, commentOptions='', cb) {
+      if (useHiveKeychain()) {
+        return window.hive_keychain.requestPost(author, title, body, parentPermlink, parentAuthor, jsonMetadata, permlink, commentOptions, function (response) {
+          if (response.error) return cb(response.error);
+          return cb(null, response);
+        });
+      }
+      var params = {
+        parent_author: parentAuthor,
+        parent_permlink: parentPermlink,
+        author: author,
+        permlink: permlink,
+        title: title,
+        body: body,
+        json_metadata: (0, _stringify2.default)(jsonMetadata),
+      };
+
+      if(commentOptions!==''){
+        return this.broadcast([['comment', params],['comment_options', commentOptions]], cb);
+      }else{
+        return this.broadcast([['comment', params]], cb);
+      }
+    }
